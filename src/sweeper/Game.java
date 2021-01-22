@@ -36,6 +36,8 @@ public class Game {
     public void pressLeftButton(Coordinate coordinate) {
 //        flag.setOpenedToBox(coordinate);
 
+        if (gameOver())
+            return;
         openBox(coordinate);
         checkWinner();
     }
@@ -52,6 +54,7 @@ public class Game {
     private void openBox(Coordinate coordinate) {
         switch (flag.get(coordinate)) {
             case OPENED:
+                openClosedBoxesAroundDigit(coordinate);
                 return;
             case FLAGED:
                 return;
@@ -61,14 +64,55 @@ public class Game {
                         openBoxesAround(coordinate);
                         return;//если нажали на пустую клетку - открываем все рядом пустые
                     case BOMB:
-                        return;
+                        openBombs(coordinate);
+                        return;//открыть все бомбы-значит мы проиграли
                     default:
                         flag.setOpenedToBox(coordinate);
-                        return;//если снизу цифра
+                        return;
+
+                    //если снизу цифра
                 }
         }
 
     }
+
+    void openClosedBoxesAroundDigit(Coordinate coordinate) {
+
+        if (bomb.get(coordinate) != Box.BOMB) {
+
+            if (flag.getCountOfFlaggedBoxesAround(coordinate) == bomb.get(coordinate).getNumber()) {
+                for (Coordinate around : Ranges.getCoordAround(coordinate)
+                ) {
+                    if (flag.get(around) == Box.CLOSED) {
+                        openBox(coordinate);
+                    }
+
+                }
+
+            }
+        }
+
+
+    }
+
+
+    //если клик на бомбу то она взрывается
+    private void openBombs(Coordinate bombed) {
+
+        gameState = GameState.BOMBED;
+        flag.setBombedToBox(bombed);
+        //отобразить все бомбы
+        for (Coordinate coord : Ranges.getAllCoordinates()
+        ) {
+            if (bomb.get(coord) == Box.BOMB) {
+                flag.setOpenedtoCloseBombBox(coord);
+            } else
+                flag.setNoBombToFlagedSafeBox(coord);
+
+        }
+
+    }
+
 
     //если нажали на пустую клетку - открываем все рядом пустые
     private void openBoxesAround(Coordinate coordinate) {
@@ -84,6 +128,21 @@ public class Game {
 
     //  нажатием левой кнопки мыши установить флаг
     public void pressRightButton(Coordinate coordinate) {
+        if (gameOver())
+            return;
+
         flag.toggleFlagetToBox(coordinate);
+
+    }
+
+    private boolean gameOver() {
+
+        if (gameState == GameState.PLAYED)
+            return false;
+
+
+        start();
+        return true;
+
     }
 }
