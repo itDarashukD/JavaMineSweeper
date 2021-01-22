@@ -2,9 +2,11 @@ package sweeper;
 
 class Flag {
     private Matrix flagMap;
+    private int countOfClosedBoxes;
 
     void start() {
         flagMap = new Matrix(Box.CLOSED);
+        countOfClosedBoxes=Ranges.getSize().x*Ranges.getSize().y;
 
     }
 
@@ -15,6 +17,7 @@ class Flag {
     //указанным координатам установит поле ОПЕН
     void setOpenedToBox(Coordinate coordinate) {
         flagMap.set(coordinate, Box.OPENED);
+        countOfClosedBoxes--;
 
     }
 
@@ -28,12 +31,17 @@ class Flag {
         }
     }
     //указанным координатам установит флаг
-    public void setFlagToBox(Coordinate coordinate) {
+    private void setFlagToBox(Coordinate coordinate) {
         flagMap.set(coordinate, Box.FLAGED);
 
     }
 //можно не только ставить флаги но и убирать
     private void setCloseToBox(Coordinate coordinate) {
         flagMap.set(coordinate,Box.CLOSED);
+    }
+
+     int getCountOdCloseBoxes() {
+
+        return countOfClosedBoxes;
     }
 }
