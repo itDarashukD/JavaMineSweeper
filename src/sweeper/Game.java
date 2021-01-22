@@ -35,6 +35,6 @@ public class Game {
     }
     //  нажатием левой кнопки мыши установить флаг
     public void pressRightButton(Coordinate coordinate) {
-        flag.setFlagToBox(coordinate);
+        flag.toggleFlagetToBox(coordinate);
     }
 }

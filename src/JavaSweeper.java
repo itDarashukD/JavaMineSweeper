@@ -37,12 +37,12 @@ public class JavaSweeper extends JFrame {
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("JavaSweeper");
-        setLocationRelativeTo(null);
+
         setResizable(false);
         setVisible(true);
         setIconImage(getImage("icon")); //иконка самой програмки влевом верхнем углу и в панели винды
         pack();
-
+        setLocationRelativeTo(null);
     }
 
     //инитифлизируем панель
@@ -71,8 +71,12 @@ public class JavaSweeper extends JFrame {
                 if (e.getButton()==MouseEvent.BUTTON1){
                     game.pressLeftButton(coordinate);}
 
-                //при нажатии равой кнопкой мыши
+                //при нажатии средней кнопкой мыши
                 if (e.getButton()==MouseEvent.BUTTON2){
+                   game.start();}
+
+                //при нажатии равой кнопкой мыши
+                if (e.getButton()==MouseEvent.BUTTON3){
                     game.pressRightButton(coordinate);}
                     //обновить панель, иначе изменения не будут видны
                     panel.repaint();
