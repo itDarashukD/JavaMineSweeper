@@ -7,6 +7,7 @@ class Bomb {
 
     Bomb(int totalBombs) {
         this.totalBombs = totalBombs;
+        fixBombCounts();
     }
 
     //размещаем несколько бомб = totalBombs
@@ -22,13 +23,24 @@ class Bomb {
     Box get(Coordinate coordinate) {
         return bombMap.get(coordinate);
     }
+    //максимальное количество бомб
+    private void fixBombCounts(){
+        int maxBombs=Ranges.getSize().x*Ranges.getSize().y/2;
+        if (totalBombs >maxBombs) {
+            totalBombs=maxBombs;
+        }
+    }
 
     //для размещения одной бомбы со случайными координатами
     private void placeBomb() {
-        Coordinate coordinate = Ranges.getRandomCoordinate();
-        bombMap.set(coordinate, Box.BOMB);
-        incNumbersAroundBombs(coordinate);
-
+        while (true) {
+            Coordinate coordinate = Ranges.getRandomCoordinate();//создаем коорд для размещения бомбы
+            if (Box.BOMB == bombMap.get(coordinate))//если на этом месте бомба уже есть ,то пропускаем     continue;
+                continue;
+            bombMap.set(coordinate, Box.BOMB);
+            incNumbersAroundBombs(coordinate);
+            break;
+        }
     }
 
     //размещение вокруг каждой бомбы единичек 1
