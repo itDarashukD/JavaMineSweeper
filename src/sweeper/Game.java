@@ -27,10 +27,14 @@ public class Game {
         //возвращием верхний слой
         return flag.get(coordinate);
     }
-//открыть указанное поле
+//открыть указанное поле нажатием левой кнопки мыши
     public void pressLeftButton(Coordinate coordinate) {
 
         flag.setOpenedToBox(coordinate);
 
+    }
+    //  нажатием левой кнопки мыши установить флаг
+    public void pressRightButton(Coordinate coordinate) {
+        flag.setFlagToBox(coordinate);
     }
 }

@@ -17,4 +17,9 @@ class Flag {
         flagMap.set(coordinate, Box.OPENED);
 
     }
+    //указанным координатам установит флаг
+    public void setFlagToBox(Coordinate coordinate) {
+        flagMap.set(coordinate, Box.FLAGED);
+
+    }
 }

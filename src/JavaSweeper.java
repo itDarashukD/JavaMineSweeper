@@ -66,13 +66,16 @@ public class JavaSweeper extends JFrame {
                 int x = e.getX() / IMAGE_SIZE;
                 int y = e.getY() / IMAGE_SIZE;
                 Coordinate coordinate = new Coordinate(x, y);
+
                 //при нажатии левой кнопкой мыши
                 if (e.getButton()==MouseEvent.BUTTON1){
-                    game.pressLeftButton(coordinate);
+                    game.pressLeftButton(coordinate);}
+
+                //при нажатии равой кнопкой мыши
+                if (e.getButton()==MouseEvent.BUTTON2){
+                    game.pressRightButton(coordinate);}
                     //обновить панель, иначе изменения не будут видны
                     panel.repaint();
-                }
-
 
             }
         });
