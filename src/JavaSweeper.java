@@ -12,6 +12,7 @@ public class JavaSweeper extends JFrame {
 
     private Game game;
     private JPanel panel;
+    private JLabel label; //переменная для передачи состояния игры
     //можно вынести в ENUM
     private final int COLS = 9;
     private final int ROWS = 9;
@@ -28,6 +29,7 @@ public class JavaSweeper extends JFrame {
         game = new Game(COLS, ROWS, BOMBS);
         game.start();
         setImage();
+        initLabel();
         initPanel();
         initFrame();
     }
@@ -43,6 +45,11 @@ public class JavaSweeper extends JFrame {
         setIconImage(getImage("icon")); //иконка самой програмки влевом верхнем углу и в панели винды
         pack();
         setLocationRelativeTo(null);
+    }
+    //состояние - игра запущена
+    private void initLabel(){
+        label=new JLabel("Welcome!!!");
+        add(label,BorderLayout.SOUTH);
     }
 
     //инитифлизируем панель
@@ -78,6 +85,10 @@ public class JavaSweeper extends JFrame {
                 //при нажатии равой кнопкой мыши
                 if (e.getButton()==MouseEvent.BUTTON3){
                     game.pressRightButton(coordinate);}
+
+                    //текст отображаемый в состоянии игры
+                    label.setText(getMessage());
+
                     //обновить панель, иначе изменения не будут видны
                     panel.repaint();
 
@@ -88,6 +99,17 @@ public class JavaSweeper extends JFrame {
                 Dimension(Ranges.getSize().x * IMAGE_SIZE, Ranges.getSize().y * IMAGE_SIZE));//задаем размеры окна
 
         add(panel);
+
+    }
+//выводить сообщения в зависимости от статуса игры
+    private String getMessage() {
+
+        switch (game.getGameState()){
+            case PLAYED:return "Think twice!))";
+            case BOMBED:return "You lose!";
+            case WINNER:return "You win champ!";
+            default:return "Welcome!!";
+        }
 
     }
 
