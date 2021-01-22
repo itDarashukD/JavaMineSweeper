@@ -5,11 +5,16 @@ class Flag {
 
     void start() {
         flagMap = new Matrix(Box.CLOSED);
-        //открыть центральную клетку
-        flagMap.set(new Coordinate(4,4) ,Box.OPENED);
+
     }
 
     Box get(Coordinate coordinate) {
         return flagMap.get(coordinate);
+    }
+
+    //указанным координатам установит поле ОПЕН
+    void setOpenedToBox(Coordinate coordinate) {
+        flagMap.set(coordinate, Box.OPENED);
+
     }
 }

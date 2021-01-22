@@ -27,4 +27,10 @@ public class Game {
         //возвращием верхний слой
         return flag.get(coordinate);
     }
+//открыть указанное поле
+    public void pressLeftButton(Coordinate coordinate) {
+
+        flag.setOpenedToBox(coordinate);
+
+    }
 }
