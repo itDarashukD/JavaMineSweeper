@@ -3,13 +3,16 @@ import java.awt.*;
 
 import sweeper.Box;
 import sweeper.Coordinate;
+import sweeper.Game;
+import sweeper.Ranges;
 
 public class JavaSweeper extends JFrame {
 
+    private Game game;
     private JPanel panel;
     //можно вынести в ENUM
-    private final int COLS = 15;
-    private final int ROWS = 1;
+    private final int COLS = 9;
+    private final int ROWS = 9;
     private final int IMAGE_SIZE = 50;
 
     public static void main(String[] args) {
@@ -19,6 +22,8 @@ public class JavaSweeper extends JFrame {
 
 
     private JavaSweeper() {
+        game=new Game(COLS,ROWS);
+        game.start();
         setImage();
         initPanel();
         initFrame();
@@ -26,14 +31,14 @@ public class JavaSweeper extends JFrame {
 
     //создаем окошко
     private void initFrame() {
-        pack();
+
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setTitle("JavaSweeper");
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
         setIconImage(getImage("icon")); //иконка самой програмки влевом верхнем углу и в панели винды
-
+        pack();
 
     }
     //инитифлизируем панель
@@ -44,20 +49,16 @@ public class JavaSweeper extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                for (Box box : Box.values()
-                ) {
-                    Coordinate coordinate = new Coordinate(box.ordinal() * IMAGE_SIZE, 0);
-
-                    g.drawImage((Image) box.image, coordinate.x,coordinate.y, this);
-
+                for (Coordinate coordinate:Ranges.getAllCoordinates()
+                     ) {
+                    g.drawImage((Image) game.getBox(coordinate).image, coordinate.x*IMAGE_SIZE,coordinate.y*IMAGE_SIZE, this);
                 }
-
             }
         };
 
         panel.setPreferredSize(new
 
-                Dimension(COLS * IMAGE_SIZE, ROWS * IMAGE_SIZE));//задаем размеры окна
+                Dimension(Ranges.getSize().x*IMAGE_SIZE, Ranges.getSize().y*IMAGE_SIZE));//задаем размеры окна
 
         add(panel);
 
