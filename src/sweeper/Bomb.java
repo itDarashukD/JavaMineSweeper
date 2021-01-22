@@ -12,14 +12,14 @@ class Bomb {
     //размещаем несколько бомб = totalBombs
     void start() {
         bombMap = new Matrix(Box.ZERO);
-        for (int i = 0; i <totalBombs ; i++) {
+        for (int i = 0; i < totalBombs; i++) {
             placeBomb();
         }
 
     }
 
 
-    Box get (Coordinate coordinate){
+    Box get(Coordinate coordinate) {
         return bombMap.get(coordinate);
     }
 
@@ -27,12 +27,21 @@ class Bomb {
     private void placeBomb() {
         Coordinate coordinate = Ranges.getRandomCoordinate();
         bombMap.set(coordinate, Box.BOMB);
-        for (Coordinate around: Ranges.getCoordAround(coordinate)
-             ) {bombMap.set(around,Box.NUM1);
+        incNumbersAroundBombs(coordinate);
 
-        }
-            
+    }
+
+    //размещение вокруг каждой бомбы единичек 1
+    private void incNumbersAroundBombs(Coordinate coordinate) {
+        for (Coordinate around : Ranges.getCoordAround(coordinate)
+        ) {
+            if (Box.BOMB != bombMap.get(around)) { //проверяем не установленая ли на месте куда мы хотим установить единицу -  БОМБА
+                bombMap.set(around, bombMap.get(around).getNextNumbewBox());//установка других цифр около бомб
+            }
+
+
         }
     }
 
 
+}
