@@ -1,5 +1,7 @@
 package sweeper;
 
+import java.util.Objects;
+
 public class Coordinate {
     public int x;
     public int y;
@@ -9,4 +11,13 @@ public class Coordinate {
         this.y = y;
     }
 
+    @Override
+    public boolean equals(Object o) {
+
+        if (o instanceof Coordinate) {
+            Coordinate to = (Coordinate) o;
+            return to.x == x && to.y == y;
+        }
+        return super.equals(o);
+    }
 }
