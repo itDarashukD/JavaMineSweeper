@@ -9,17 +9,24 @@ class Bomb {
         this.totalBombs = totalBombs;
     }
 
+    //размещаем несколько бомб = totalBombs
     void start() {
         bombMap = new Matrix(Box.ZERO);
-        placeBomb();
+        for (int i = 0; i <totalBombs ; i++) {
+            placeBomb();
+        }
+
     }
+
+
     Box get (Coordinate coordinate){
         return bombMap.get(coordinate);
     }
 
-    //для размещения одной бомбы
+    //для размещения одной бомбы со случайными координатами
     private void placeBomb() {
-        bombMap.set(new Coordinate(4, 4), Box.BOMB);
+        Coordinate coordinate = Ranges.getRandomCoordinate();
+        bombMap.set(coordinate, Box.BOMB);
     }
 
 }
