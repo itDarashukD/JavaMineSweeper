@@ -3,7 +3,7 @@ package sweeper;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Ranges {
+public class Ranges extends BombService {
 
     private static Coordinate size;
     private static ArrayList<Coordinate> allCoordinates;
@@ -42,7 +42,8 @@ public class Ranges {
     }
 
     //перебирать все кледки вокруг одной(вокруг бомбы)
-    static ArrayList<Coordinate> getCoordAround(Coordinate coordinate) {
+
+  static ArrayList<Coordinate> getCoordAround(Coordinate coordinate) {
         Coordinate around;
         ArrayList<Coordinate> list = new ArrayList<Coordinate>();
         for (int x = coordinate.x - 1; x <= coordinate.x + 1; x++) {

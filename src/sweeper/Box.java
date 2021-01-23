@@ -21,7 +21,7 @@ public enum Box {
     public Object image;
 
 
-      Box getNextNumbewBox() {
+      Box getNextNumberBox() {
           return Box.values()[this.ordinal()+1];
     }
 

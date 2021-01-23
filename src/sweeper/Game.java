@@ -1,6 +1,6 @@
 package sweeper;
 
-public class Game {
+public class Game implements Istart, IgameOver {
 
     private Bomb bomb;
     private Flag flag;
@@ -13,6 +13,7 @@ public class Game {
         gameState = GameState.PLAYED;
     }
 
+    @Override
     public void start() {
 
         bomb.start();
@@ -37,8 +38,9 @@ public class Game {
     public void pressLeftButton(Coordinate coordinate) {
 //        flag.setOpenedToBox(coordinate);
 
-        if (gameOver()){
-            return;}
+        if (gameOver()) {
+            return;
+        }
         openBox(coordinate);
         checkWinner();
     }
@@ -56,7 +58,7 @@ public class Game {
 
         switch (flag.get(coordinate)) {
             case OPENED:
-                 setOpenToClosedBoxesAroundDigit(coordinate);
+                setOpenToClosedBoxesAroundDigit(coordinate);
                 return;
             case FLAGED:
                 return;
@@ -93,10 +95,7 @@ public class Game {
 
             }
         }
-
-
     }
-
 
     //если клик на бомбу то она взрывается
     private void openBombs(Coordinate bombed) {
@@ -110,11 +109,8 @@ public class Game {
                 flag.setOpenedtoCloseBombBox(coord);
             } else
                 flag.setNoBombToFlagedSafeBox(coord);
-
         }
-
     }
-
 
     //если нажали на пустую клетку - открываем все рядом пустые
     private void openBoxesAround(Coordinate coordinate) {
@@ -125,24 +121,24 @@ public class Game {
             openBox(around);
 
         }
-
-
     }
 
-    //  нажатием левой кнопки мыши установить флаг
+    //  нажатием правой кнопки мыши установить флаг
     public void pressRightButton(Coordinate coordinate) {
-        if (gameOver()){
-            return;}
+        if (gameOver()) {
+            return;
+        }
 
         flag.toggleFlagetToBox(coordinate);
 
     }
 
-    private boolean gameOver() {
+    @Override
+    public boolean gameOver() {
 
-        if (gameState == GameState.PLAYED){
-            return false;}
-
+        if (gameState == GameState.PLAYED) {
+            return false;
+        }
 
         start();
         return true;

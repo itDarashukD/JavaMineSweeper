@@ -7,6 +7,7 @@ import sweeper.Box;
 import sweeper.Coordinate;
 import sweeper.Game;
 import sweeper.Ranges;
+import sweeper.Variables;
 
 public class JavaSweeper extends JFrame {
 
@@ -14,10 +15,10 @@ public class JavaSweeper extends JFrame {
     private JPanel panel;
     private JLabel label; //переменная для передачи состояния игры
     //можно вынести в ENUM
-    private final int COLS = 9;
-    private final int ROWS = 9;
-    private final int IMAGE_SIZE = 50;
-    private final int BOMBS = 10;
+//    private final int COLS = 9;
+//    private final int ROWS = 9;
+//    private final int IMAGE_SIZE = 50;
+//    private final int BOMBS = 10;
 
     public static void main(String[] args) {
 
@@ -26,7 +27,7 @@ public class JavaSweeper extends JFrame {
 
 
     private JavaSweeper() {
-        game = new Game(COLS, ROWS, BOMBS);
+        game = new Game(Variables.getCOLS(),Variables.getROWS(),Variables.getBOMBS());
         game.start();
         setImage();
         initLabel();
@@ -61,7 +62,7 @@ public class JavaSweeper extends JFrame {
                 super.paintComponent(g);
                 for (Coordinate coordinate : Ranges.getAllCoordinates()
                 ) {
-                    g.drawImage((Image) game.getBox(coordinate).image, coordinate.x * IMAGE_SIZE, coordinate.y * IMAGE_SIZE, this);
+                    g.drawImage((Image) game.getBox(coordinate).image, coordinate.x * Variables.getImageSize(), coordinate.y * Variables.getImageSize(), this);
                 }
             }
         };
@@ -70,8 +71,8 @@ public class JavaSweeper extends JFrame {
             @Override
             public void mousePressed(MouseEvent e) {
                 //получили место куда кликнули мышкой и записали в переменную coordinate
-                int x = e.getX() / IMAGE_SIZE;
-                int y = e.getY() / IMAGE_SIZE;
+                int x = e.getX() / Variables.getImageSize();
+                int y = e.getY() / Variables.getImageSize();
                 Coordinate coordinate = new Coordinate(x, y);
 
                 //при нажатии левой кнопкой мыши
@@ -96,7 +97,7 @@ public class JavaSweeper extends JFrame {
         });
         panel.setPreferredSize(new
 
-                Dimension(Ranges.getSize().x * IMAGE_SIZE, Ranges.getSize().y * IMAGE_SIZE));//задаем размеры окна
+                Dimension(Ranges.getSize().x * Variables.getImageSize(), Ranges.getSize().y * Variables.getImageSize()));//задаем размеры окна
 
         add(panel);
 

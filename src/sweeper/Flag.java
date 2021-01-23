@@ -1,10 +1,12 @@
 package sweeper;
 
-class Flag {
+class Flag implements Istart {
     private Matrix flagMap;
     private int countOfClosedBoxes;
 
-    void start() {
+
+    @Override
+    public void start() {
         flagMap = new Matrix(Box.CLOSED);
         countOfClosedBoxes = Ranges.getSize().x * Ranges.getSize().y;
 
@@ -18,9 +20,7 @@ class Flag {
     void setOpenedToBox(Coordinate coordinate) {
         flagMap.set(coordinate, Box.OPENED);
         countOfClosedBoxes--;
-
     }
-
 
     //если стоит флаг то закрыть клетку, если она закрыта,то ставить флаг
     public void toggleFlagetToBox(Coordinate coordinate) {
@@ -31,7 +31,6 @@ class Flag {
             case CLOSED:
                 setFlagToBox(coordinate);
                 break;
-
         }
     }
 
@@ -74,8 +73,8 @@ class Flag {
 
     }
 
-      int getCountOfFlaggedBoxesAround(Coordinate coordinate) {
-        int count =     0;
+    int getCountOfFlaggedBoxesAround(Coordinate coordinate) {
+        int count = 0;
         for (Coordinate around : Ranges.getCoordAround(coordinate)
         ) {
             if (flagMap.get(around) == Box.FLAGED) {
