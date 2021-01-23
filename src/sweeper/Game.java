@@ -17,6 +17,7 @@ public class Game {
 
         bomb.start();
         flag.start();
+        gameState = GameState.PLAYED;
     }
 
     public GameState getGameState() {
@@ -36,8 +37,8 @@ public class Game {
     public void pressLeftButton(Coordinate coordinate) {
 //        flag.setOpenedToBox(coordinate);
 
-        if (gameOver())
-            return;
+        if (gameOver()){
+            return;}
         openBox(coordinate);
         checkWinner();
     }
@@ -52,9 +53,10 @@ public class Game {
     }
 
     private void openBox(Coordinate coordinate) {
+
         switch (flag.get(coordinate)) {
             case OPENED:
-                openClosedBoxesAroundDigit(coordinate);
+                 setOpenToClosedBoxesAroundDigit(coordinate);
                 return;
             case FLAGED:
                 return;
@@ -76,7 +78,7 @@ public class Game {
 
     }
 
-    void openClosedBoxesAroundDigit(Coordinate coordinate) {
+    void setOpenToClosedBoxesAroundDigit(Coordinate coordinate) {
 
         if (bomb.get(coordinate) != Box.BOMB) {
 
@@ -116,6 +118,7 @@ public class Game {
 
     //если нажали на пустую клетку - открываем все рядом пустые
     private void openBoxesAround(Coordinate coordinate) {
+
         flag.setOpenedToBox(coordinate);//отрываем текующую клетку
         for (Coordinate around : Ranges.getCoordAround(coordinate)//отрываем рядом стекущей клеткой
         ) {
@@ -128,8 +131,8 @@ public class Game {
 
     //  нажатием левой кнопки мыши установить флаг
     public void pressRightButton(Coordinate coordinate) {
-        if (gameOver())
-            return;
+        if (gameOver()){
+            return;}
 
         flag.toggleFlagetToBox(coordinate);
 
@@ -137,8 +140,8 @@ public class Game {
 
     private boolean gameOver() {
 
-        if (gameState == GameState.PLAYED)
-            return false;
+        if (gameState == GameState.PLAYED){
+            return false;}
 
 
         start();

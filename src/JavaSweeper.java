@@ -46,7 +46,7 @@ public class JavaSweeper extends JFrame {
         pack();
         setLocationRelativeTo(null);
     }
-    //состояние - игра запущена
+    //состояние - игра запущена,метка на экран
     private void initLabel(){
         label=new JLabel("Welcome!!!");
         add(label,BorderLayout.SOUTH);

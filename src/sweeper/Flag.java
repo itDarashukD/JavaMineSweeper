@@ -75,7 +75,7 @@ class Flag {
     }
 
       int getCountOfFlaggedBoxesAround(Coordinate coordinate) {
-        int count = 00;
+        int count =     0;
         for (Coordinate around : Ranges.getCoordAround(coordinate)
         ) {
             if (flagMap.get(around) == Box.FLAGED) {
