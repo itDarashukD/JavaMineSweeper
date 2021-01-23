@@ -14,11 +14,6 @@ public class JavaSweeper extends JFrame {
     private Game game;
     private JPanel panel;
     private JLabel label; //переменная для передачи состояния игры
-    //можно вынести в ENUM
-//    private final int COLS = 9;
-//    private final int ROWS = 9;
-//    private final int IMAGE_SIZE = 50;
-//    private final int BOMBS = 10;
 
     public static void main(String[] args) {
 
